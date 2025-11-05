@@ -17,4 +17,4 @@ main().catch((error) => {
 });
 
 // Deployer Address       : 0xE6A7d99011257AEc28Ad60EFED58A256c4d5Fea3
-// Domain Address         : 0xc119a5F83CFc4CF12f5Fa9b2bFFcc6619b57B8D1
+// Domain Address         : 0x70fFDCA1D2741a6Ae496B3E6A1Fe9835832b37a0
