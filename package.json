@@ -11,7 +11,7 @@
     "test": "hardhat test ./src/test/*",
     "case-test": "hardhat test ./src/test/app.test.ts",
     "real-test": "hardhat test ./src/test/real.test.ts",
-    "flatten": "hardhat flatten src/contracts/session_ii/garden_nft.sol > src/flattened_contracts/lisk_garden_flattened.sol"
+    "flatten": "hardhat flatten src/contracts/domain_fondation.sol > src/flattened_contracts/domain_fondation.sol"
   },
   "keywords": [],
   "author": "",

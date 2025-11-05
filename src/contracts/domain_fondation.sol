@@ -252,6 +252,23 @@ contract DomainFoundation is ERC721URIStorage, Ownable, ReentrancyGuard {
         return plant;
     }
 
+    function getDonationLevel(
+        uint256 plantId
+    ) external view returns (DonationLevel) {
+        Plant memory plant = plants[plantId];
+        DonationLevel level;
+
+        if (plant.quantity <= 5) {
+            level = DonationLevel.BRONZE;
+        } else if (plant.quantity > 5 && plant.quantity <= 10) {
+            level = DonationLevel.SILVER;
+        } else {
+            level = DonationLevel.GOLD;
+        }
+
+        return level;
+    }
+
     function getUserPlants(
         address user
     ) external view returns (uint256[] memory) {
