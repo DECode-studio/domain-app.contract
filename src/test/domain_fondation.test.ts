@@ -162,7 +162,7 @@ describe("DomainFoundation (domain_fondation.sol)", function () {
 
         const withdrawTx = await domain.withdraw();
         const withdrawReceipt = await withdrawTx.wait();
-        const gasCost = withdrawReceipt.fee ?? 0n;
+        const gasCost = withdrawReceipt?.fee ?? 0n;
 
         const contractBalanceAfter =
             await ethers.provider.getBalance(contractAddress);
