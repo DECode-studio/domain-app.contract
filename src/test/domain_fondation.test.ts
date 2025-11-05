@@ -13,7 +13,7 @@ async function deployDomainFoundation() {
     return { domain, owner, otherAccount };
 }
 
-describe("DomainFoundation", function () {
+describe("DomainFoundation (domain_fondation.sol)", function () {
     const basePlantFee = ethers.parseEther("0.001");
     const baseWaterFee = ethers.parseEther("0.0001");
 
@@ -123,6 +123,19 @@ describe("DomainFoundation", function () {
 
         const plantAfter = await domain.getPlant(plantId);
         expect(plantAfter.exists).to.equal(false);
+        expect(await domain.getDonationLevel(plantId)).to.equal(2);
+    });
+
+    it("returns donation level tiers based on quantity thresholds", async function () {
+        const { domain } = await loadFixture(deployDomainFoundation);
+
+        await domain.plantSeed(3, { value: basePlantFee * 3n });
+        await domain.plantSeed(8, { value: basePlantFee * 8n });
+        await domain.plantSeed(15, { value: basePlantFee * 15n });
+
+        expect(await domain.getDonationLevel(1)).to.equal(0);
+        expect(await domain.getDonationLevel(2)).to.equal(1);
+        expect(await domain.getDonationLevel(3)).to.equal(2);
     });
 
     it("allows only the owner to withdraw accumulated funds", async function () {
@@ -149,7 +162,7 @@ describe("DomainFoundation", function () {
 
         const withdrawTx = await domain.withdraw();
         const withdrawReceipt = await withdrawTx.wait();
-        const gasCost = withdrawReceipt?.fee ?? 0n;
+        const gasCost = withdrawReceipt.fee ?? 0n;
 
         const contractBalanceAfter =
             await ethers.provider.getBalance(contractAddress);
